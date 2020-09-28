@@ -7,6 +7,6 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
-
+// la aplicación Angular se inicia iniciando el modulo Raiz(AppModule)
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
