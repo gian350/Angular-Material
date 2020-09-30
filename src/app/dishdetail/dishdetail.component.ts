@@ -56,7 +56,6 @@ const selectedDishdetail : Dish = {
 export class DishdetailComponent implements OnInit {
 
    dishesDetail :Dish = selectedDishdetail;
-   
 
 
 
