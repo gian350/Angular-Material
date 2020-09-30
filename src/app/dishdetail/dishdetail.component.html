@@ -1,0 +1,40 @@
+<div class="container"
+    fxLayout="row"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutAlign.gt-md="space-around center"
+    fxLayoutGap="10px" 
+    fxLayoutGap.xs="0">
+
+    <div fxFlex="50%">
+        <p>Display the details of the Dish here</p>
+    </div>
+    
+    <div fxFlex="50%">
+        <p>Display the list of comments here</p>
+    </div>
+</div>
+
+<!-- 
+    Información de gestion de cajas mediante el componente FxLayaout
+    https://www.digitalocean.com/community/tutorials/angular-flex-layout  
+    
+    Ejemplo de la pagina web de arriba
+
+    Flex Layout es un motor de componentes que fue anunciado recientemente por el equipo Angular. Permite crear fácilmente diseños de página basados en Flexbox con un conjunto de directivas disponibles para su uso en sus plantillas. No hay necesidad de estilo CSS separado. La propia biblioteca está escrita en TypeScript puro, por lo que no se necesitan hojas de estilo externas. También proporciona una manera de especificar diferentes directivas en diferentes puntos de interrupción para crear diseños adaptables.
+
+    FxFlex es para definir el tamaño 
+
+    fxLayoutAlign -> https://github.com/angular/flex-layout/wiki/fxLayoutAlign-API
+
+    el fxLayout directiva en el contenedor establece el contenedor flexible. Su valor predeterminado es Fila, por lo que no es necesario proporcionar ningún valor para el comportamiento predeterminado.
+
+    Queremos que el diseño se contraiga en una sola columna en dispositivos extra-pequeños, por lo que usamos el .xs notación con fxLayout para darle una dirección de columna. También podríamos usar otros puntos de interrupción como Sm, Md, Lg Y Xl.
+
+    Cambiamos el orden de los artículos en nuestra 1a fila usando el fxFlexOrder Directiva sobre el punto 2.
+    Establecemos brechas entre los elementos flexibles con fxLayoutGap.
+
+    Las clases utilizadas en el contenedor y los elementos (Contenedor, Artículo, artículo 1, ...) Flex Layout no necesita. Se utilizan para nuestro propio estilo extra.
+
+    Hemos codificado de forma rígida los valores de directiva en este ejemplo, pero también podríamos haber utilizado el enlace de datos para enlazar a valores en la clase de componente (por ejemplo). Esto facilita la creación de diseños altamente dinámicos que el usuario puede controlar y cambiar.[fxLayout]="direction"
+-->

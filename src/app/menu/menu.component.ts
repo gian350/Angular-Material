@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Dish } from '../shared/Dish'; // importamos la clase dish
-
+import { DishdetailComponent } from '../dishdetail/dishdetail.component';
 // este es un componente que se le llamará del componente raiz
 
 const DISHES: Dish[] = [

@@ -10,6 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './menu/menu.component';
+import { DishdetailComponent } from './dishdetail/dishdetail.component';
 // aqui se puede notar que el moduleApp esta conteniendo estos otros modulos y componentes, el modulo raiz es
 //  el modulo primario que le ayuda a arrancar a Angular
 // este decorador nñModule es un decorador que modifica la clase , para correr angular , nesesitamos de los componentes
@@ -18,7 +19,8 @@ import { MenuComponent } from './menu/menu.component';
  
   declarations: [
     AppComponent,
-    MenuComponent   // es la propiedad que declara las clases de vista
+    MenuComponent,
+    DishdetailComponent   // es la propiedad que declara las clases de vista
   ],
   imports: [
     BrowserModule,// se importa los modulos instalados ,osea material y animations

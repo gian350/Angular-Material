@@ -23,15 +23,16 @@
   
   <div fxFlex>
     <mat-grid-list cols="2" rowHeight="200px">
-      <mat-grid-tile *ngFor="let dish of dishes">
-        <img height="200px" src={{dish.image}} alt={{dish.name}}>
+      <mat-grid-tile *ngFor="let item of dishes">
+        <img height="200px" src={{item.image}} alt={{item.name}}>
         <mat-grid-tile-footer>
-          <h1>{{dish.name | uppercase}}</h1>
+          <h1>{{item.name | uppercase}}</h1>
         </mat-grid-tile-footer>
       </mat-grid-tile>
     </mat-grid-list>
   </div> 
 
+  <!--  
   <div fxFlex *ngIf="selectedDish">
     <mat-card class="example-card">
       <mat-card-header>
@@ -53,5 +54,10 @@
       </mat-card-actions>
     </mat-card>
   </div>
+  -->
+  
+  <h1>GIAN CARLOS</h1>
+  <app-dishdetail></app-dishdetail>
+
 
 </div>
