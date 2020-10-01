@@ -23,7 +23,7 @@
   
   <div fxFlex>
     <mat-grid-list cols="2" rowHeight="200px">
-      <mat-grid-tile *ngFor="let item of dishes">
+      <mat-grid-tile *ngFor="let item of dishes" (click)="onSelect(item)">
         <img height="200px" src={{item.image}} alt={{item.name}}>
         <mat-grid-tile-footer>
           <h1>{{item.name | uppercase}}</h1>
@@ -32,7 +32,7 @@
     </mat-grid-list>
   </div> 
 
-  <app-dishdetail></app-dishdetail>
-
+  <app-dishdetail [dishesDetail]="selectedDishdetail"></app-dishdetail>
+  <!-- Aqui es donde se envia la propiedad "dish" hacia el componenete "dishdetail"-->
 
 </div>

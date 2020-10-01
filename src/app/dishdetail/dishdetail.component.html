@@ -31,7 +31,7 @@
     </div>
     
     <div fxFlex="50%">
-      <mat-list fxFlex>
+      <mat-list fxFlex *ngIf="dishesDetail">
         <h1>Comments</h1>
         <mat-list-item *ngFor="let item of dishesDetail.comments">
           <h3 matLine>{{item.comment}}</h3>
