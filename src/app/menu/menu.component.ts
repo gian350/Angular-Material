@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Dish } from '../shared/Dish'; // importamos la clase dish
-import { DISHES } from '../shared/Dishes';
+
 // este es un componente que se le llamará del componente raiz
 
+import { DishService } from '../services/dish.service';
+// servicios
 
 @Component({
   selector: 'app-menu',
@@ -12,16 +14,23 @@ import { DISHES } from '../shared/Dishes';
 
 export class MenuComponent implements OnInit {
   // creamos un arreglo de Dish para mostrarlos luego
-  dishes: Dish[] = DISHES;
+  dishes: Dish[];
 
   selectedDishdetail: Dish; // aqui creo la variable que guardará el valor seleccionado
 
   
+  //se declara la clase servicio en el constructor, de esta manera ya lo estamos inyectando a este componente
+  constructor(private dishService: DishService) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    this.dishes = this.dishService.getDishes();
   }
+
+  /*
+  ngOnInit es propio de angular y se ejecuta después del constructor. A diferencia del constructor, ngOnInit pertenece al ciclo de vida propio de angular y es aquí donde le ‘decimos’ que el componente ya está listo para darle uso 
+
+  https://medium.com/zurvin/cu%C3%A1l-es-la-diferencia-entre-ngoninit-y-constructor-en-angular-2f7ce3d986b7#:~:text=ngOnInit%20es%20propio%20de%20angular,est%C3%A1%20listo%20para%20darle%20uso.&text=Otros%20recomiendan%20usar%20el%20constructor,dejar%20el%20resto%20para%20ngOnInit.
+  */
 
   // este metodo es como un set, introducirá el valor del plato seleccionado por medio del parametro hacia el atributo local de esta clase "selectedDish"
   onSelect(item: Dish) {

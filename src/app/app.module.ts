@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
+
+import { DishService } from './services/dish.service';
 // aqui se puede notar que el moduleApp esta conteniendo estos otros modulos y componentes, el modulo raiz es
 //  el modulo primario que le ayuda a arrancar a Angular
 // este decorador nñModule es un decorador que modifica la clase , para correr angular , nesesitamos de los componentes
@@ -32,7 +34,7 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
     MatCardModule,
     MatButtonModule
   ],
-  providers: [], // los proveedores especifican todos los servicios que este modulo harán uso
+  providers: [DishService], // los proveedores especifican todos los servicios que este modulo harán uso
   bootstrap: [AppComponent]
 })
 export class AppModule { }
