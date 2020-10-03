@@ -13,6 +13,8 @@ import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 
 import { DishService } from './services/dish.service';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 // aqui se puede notar que el moduleApp esta conteniendo estos otros modulos y componentes, el modulo raiz es
 //  el modulo primario que le ayuda a arrancar a Angular
 // este decorador nñModule es un decorador que modifica la clase , para correr angular , nesesitamos de los componentes
@@ -22,7 +24,9 @@ import { DishService } from './services/dish.service';
   declarations: [
     AppComponent,
     MenuComponent,
-    DishdetailComponent   // es la propiedad que declara las clases de vista
+    DishdetailComponent,
+    HeaderComponent,
+    FooterComponent   // es la propiedad que declara las clases de vista
   ],
   imports: [
     BrowserModule,// se importa los modulos instalados ,osea material y animations
