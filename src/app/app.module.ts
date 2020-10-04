@@ -1,3 +1,4 @@
+/* ------------- Componentes angulares y material-angular ----------*/ 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -6,39 +7,57 @@ import { MatListModule } from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+/* ------------- Componentes App ----------*/ 
+import { AppComponent } from './app.component';
+
+/* ------------- Componentes añadidos ----------*/ 
 import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
-
-import { DishService } from './services/dish.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+
+/* ------------- Servicios añadidos ----------*/ 
+import { DishService } from './services/dish.service';
+import { PromotionService } from './services/promotion.service';
+
+import { AppRoutingModule } from './app-routing/app-routing.module';
+
 // aqui se puede notar que el moduleApp esta conteniendo estos otros modulos y componentes, el modulo raiz es
 //  el modulo primario que le ayuda a arrancar a Angular
 // este decorador nñModule es un decorador que modifica la clase , para correr angular , nesesitamos de los componentes
 // AppComponent es el componente raiz de nuestra aplicación Angular  
 @NgModule({
  
-  declarations: [
+  declarations: [// Aqui se guarda los componentes que se utilizara en el modulo de la aplicación
     AppComponent,
     MenuComponent,
     DishdetailComponent,
     HeaderComponent,
-    FooterComponent   // es la propiedad que declara las clases de vista
+    FooterComponent,
+    HomeComponent,
+    AboutComponent,
+    ContactComponent   
   ],
-  imports: [
-    BrowserModule,// se importa los modulos instalados ,osea material y animations
-    BrowserAnimationsModule, // estos son los modulos que se van a importar en el modulo de la aplicación.
+  imports: [// estos son los modulos que se van a importar en el modulo de la aplicación.
+    BrowserModule,
+    BrowserAnimationsModule, 
     MatToolbarModule,
     FlexLayoutModule,
     MatListModule,
     MatGridListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    AppRoutingModule
   ],
-  providers: [DishService], // los proveedores especifican todos los servicios que este modulo harán uso
+  providers: [// los proveedores especifican todos los servicios que este modulo harán uso
+    DishService,
+    PromotionService
+  ], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }
