@@ -24,6 +24,7 @@ import { ContactComponent } from './contact/contact.component';
 /* ------------- Servicios añadidos ----------*/ 
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
+import { LeaderService } from './services/leader.service';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
@@ -56,7 +57,8 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
   ],
   providers: [// los proveedores especifican todos los servicios que este modulo harán uso
     DishService,
-    PromotionService
+    PromotionService,
+    LeaderService
   ], 
   bootstrap: [AppComponent]
 })
