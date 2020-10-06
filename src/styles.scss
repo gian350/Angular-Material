@@ -46,3 +46,8 @@ body {
 .flex-spacer {
   flex: 1 1 auto;
 }
+
+// valor por defecto del flex es 0 1 auto, 
+// 1- 1 = grow que significa que tomara todo el espacio entre dos box factor(crecimiento)
+// 2- 1 = shrink que significa que se reducira en proporción de 1
+// 3- auto = que su logitud horizontal y vertical son automaticos, se mide por el contenido

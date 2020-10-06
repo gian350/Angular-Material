@@ -8,6 +8,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms'; 
+
 
 /* ------------- Componentes App ----------*/ 
 import { AppComponent } from './app.component';
@@ -27,6 +33,7 @@ import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { LoginComponent } from './login/login.component';
 
 // aqui se puede notar que el moduleApp esta conteniendo estos otros modulos y componentes, el modulo raiz es
 //  el modulo primario que le ayuda a arrancar a Angular
@@ -42,7 +49,8 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     FooterComponent,
     HomeComponent,
     AboutComponent,
-    ContactComponent   
+    ContactComponent,
+    LoginComponent   
   ],
   imports: [// estos son los modulos que se van a importar en el modulo de la aplicación.
     BrowserModule,
@@ -53,14 +61,22 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    MatFormFieldModule, 
+    MatInputModule,
+    MatCheckboxModule,
+    FormsModule
   ],
   providers: [// los proveedores especifican todos los servicios que este modulo harán uso
     DishService,
     PromotionService,
     LeaderService
   ], 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ // cuando se coloca un componente como componente de entrada, esto hace posible
+    LoginComponent // la superposición de componentes, osea un dialog, por eso se coloca aqui el LoginComponent
+],
 })
 export class AppModule { }
 
