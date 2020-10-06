@@ -1,14 +1,16 @@
 <p>{{ user | json }}</p>
 
-<form novalidate (ngSubmit)="onSubmit()">
+<form novalidate #loginForm="ngForm" (ngSubmit)="onSubmit()">
 
   <mat-dialog-content>
     <p>
       <mat-form-field>
-        <input matInput placeholder="Username" type="text" [(ngModel)]="user.username" name="username">
+        <input matInput placeholder="Username" type="text" [(ngModel)]="user.username" name="username" #username="ngModel" required>
+        <mat-error *ngIf="username.errors?.required">Username is required</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Password" type="password" [(ngModel)]="user.password" name="password">
+        <input matInput placeholder="Password" type="password" [(ngModel)]="user.password" name="password" #password="ngModel" required>
+        <mat-error *ngIf="password.errors?.required">Password is required</mat-error>
       </mat-form-field>
       <mat-checkbox [(ngModel)]="user.remember" name="remember">Remember Me</mat-checkbox>
     </p>
@@ -16,7 +18,7 @@
   <mat-dialog-actions>
     <span class="flex-spacer"></span>
     <button mat-button mat-dialog-close>Cancel</button>
-    <button type="submit" mat-button class="background-primary text-floral-white" >Login</button>
+    <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="loginForm.form.invalid">Login</button>
   </mat-dialog-actions>
 </form>
 
@@ -28,4 +30,13 @@
   mat-dialog-close -> es para que el simbolo de la "X" cierre el dialog
 
   ngModel -> Es el modelo que se manejará en el formulario
+
+  ----------
+
+  #loginForm="ngForm" -> se crea una variable #loginForm como identificador de elementos del DOM, y cuando se iguala a "ngForm" se enlaza a la variable creada para darle un seguimiento del estado de validación, esto nos servira para cuando queramos desabilitar el boton de "login", en caso el formulario no sea valido , no se podrá clickear, de lo contraorio si podrá logearse
+
+  #username="ngModel" -> se crea la variable username el cual será llamada desde el MatError, funciona de la misma manera que arriba, toma el estado de validez y si hay error, devuelve el error de ese input.
+
+  [disabled]="loginForm.form.invalid" -> aqui le enviamos el valor de desabilitado y para que se relacione en en estado de validez, si es valido se activa , de lo contrario se desactiva
+
 -->
