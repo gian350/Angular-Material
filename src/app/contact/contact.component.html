@@ -33,6 +33,61 @@
             </div>
         </div>
     </div>
+
+    <div fxFlex fxFlexOffset="20px" class="form-size">
+        <h3>Send us your Feedback</h3>
+        <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
+
+        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <p>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="firstname" placeholder="First Name" type="text" >
+                    <mat-error
+                    *ngIf="isValidField('firstname')">
+                    {{getErrorMessage("firstname")}}</mat-error>
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="lastname" placeholder="Last Name" type="text" >
+                    <mat-error
+                    *ngIf="isValidField('lastname')">
+                    {{getErrorMessage("lastname")}}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="telnum" placeholder="Tel. Number" type="tel" >
+                    <mat-error
+                    *ngIf="isValidField('telnum')">
+                    {{getErrorMessage("telnum")}}</mat-error>
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="email" placeholder="Email" type="email" >
+                    <mat-error
+                        *ngIf="isValidField('email')">
+                        {{getErrorMessage("email")}}</mat-error>
+                </mat-form-field>
+            </p>
+            <table class="form-size">
+                <td>
+                    <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
+                </td>
+                <td>
+                    <mat-select placeholder="How?" formControlName="contacttype">
+                        <mat-option *ngFor="let ctype of contactType" [value]="ctype">
+                            {{ ctype }}
+                        </mat-option>
+                    </mat-select>
+                </td>
+            </table>
+            <p>
+                <mat-form-field class="full-width">
+                    <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
+                </mat-form-field>
+            </p>
+            <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
+        </form>
+    </div>
+
 </div>
 
 <!--  
@@ -42,4 +97,25 @@
     fxLayout -> Define el diseño del box, column, row, row inverso, columna inverso
     si es row -> será que los hijos estarán en una fila, todos.
     si es Column -> será que los hijos estarán en filas individuales como columnas horizontales
+
+
+    ----- formularios reactivos
+
+    Se puede observar mediante FormGroup que es reactivo ya que al escribir en cualquier momento cambia su valor, osea el objeto es observable.
+
+    FormGroup es un cojunto de FormControls, el estado de este objeto depende del estado de todos sus objetos, es decir, si uno de los FormControl es inválido, el grupo entero es inválido. Para usarlo:
+
+
+    [formGroup]="feedbackForm" -> Esto significa que le aplicamos un formGroup el cual creamos en el componente,
+                Este grupo de formularios vinculará el componente con la vista
+
+    (ngSubmit)="onSubmit() -> metodo que servira para logearse
+
+    formControlName -> Es el nombre del formControl el cual tendrá que ser mapeado con el mismo nombre del formGroup
+
+    mat-slide-toggle -> Tienden a ser posicionados dentro de una tabla
+
+    https://angular.io/api/forms/FormControl
+
+    hasError('required') -> Informa si el control con la ruta dada tiene el error especificado, osea required, si esta vacio informará este error mediante el mensaje escrito
  -->
