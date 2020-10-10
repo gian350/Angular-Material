@@ -21,7 +21,8 @@
     </div>
   </div>
   
-  <div fxFlex>
+  <!-- mientras los platos no sean nulos deben mostrarse, osea esperará a que la promesa se realice para mostrar -->
+  <div fxFlex *ngIf="dishes">
     <mat-grid-list cols="2" rowHeight="200px">
       <mat-grid-tile *ngFor="let item of dishes" [routerLink]="['/dishdetail', item.id]">
         <img height="200px" src={{item.image}} alt={{item.name}}>
@@ -31,6 +32,14 @@
       </mat-grid-tile>
     </mat-grid-list>
   </div> 
+
+  <!-- si los platos no son nulos este div estará oculto, si todavia no se cumple la promesa, esto se mostrará -->
+  
+  <div [hidden]="dishes" >
+      <mat-spinner></mat-spinner>
+      <h4>Loading . . . Please Wait</h4>
+  </div>
+
 
   <!-- 
     <app-dishdetail [dishesDetail]="selectedDishdetail"></app-dishdetail> 

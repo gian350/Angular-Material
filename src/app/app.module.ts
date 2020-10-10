@@ -13,6 +13,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms'; 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // componentes reactivos
 import { MatSelectModule } from '@angular/material/select';
@@ -74,7 +75,8 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     MatSelectModule,
     MatSlideToggleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [// los proveedores especifican todos los servicios que este modulo harán uso
     DishService,
