@@ -7,18 +7,18 @@ import { LEADERS } from '../shared/leaders';
 })
 export class LeaderService {
 
-  getLeaderes(): leader[] {
-    return LEADERS;
+  getLeaderes(): Promise<leader[]> {
+    return Promise.resolve(LEADERS);
   }
 
   // función para buscar un plato(dish)
-  getLeader(id: string): leader {
-    return LEADERS.filter((lead) => (lead.id === id))[0];
+  getLeader(id: string): Promise<leader> {
+    return Promise.resolve(LEADERS.filter((lead) => (lead.id === id))[0]);
   }
 
   // función para retornar plato destacado
-  getFeaturedLeader(): leader {
-    return LEADERS.filter((lead) => lead.featured)[0];
+  getFeaturedLeader(): Promise<leader> {
+    return Promise.resolve(LEADERS.filter((lead) => lead.featured)[0]);
   }
 
 

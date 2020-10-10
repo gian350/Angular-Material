@@ -101,7 +101,7 @@ export class ContactComponent implements OnInit {
     }
     return message;
   }
-
+/*
   getErrorNum(): string{
     let num_length = this.feedbackForm.get('telnum').value;
     let message="";
@@ -122,7 +122,7 @@ export class ContactComponent implements OnInit {
     
     return num_length;
   }
-
+*/
 
   isValidField(field: string): boolean{
     return (

@@ -7,18 +7,18 @@ import { PROMOTIONS } from '../shared/promotions';
 })
 export class PromotionService {
 
-  getPromotions(): Promotion[] {
-    return PROMOTIONS;
+  getPromotions(): Promise<Promotion[]> {
+    return Promise.resolve(PROMOTIONS);
   }
 
   // función para buscar un plato(dish)
-  getPromotion(id: string): Promotion {
-    return PROMOTIONS.filter((promo) => (promo.id === id))[0];
+  getPromotion(id: string): Promise<Promotion> {
+    return Promise.resolve(PROMOTIONS.filter((promo) => (promo.id === id))[0]);
   }
 
   // función para retornar plato destacado
-  getFeaturedPromotion(): Promotion {
-    return PROMOTIONS.filter((promo) => promo.featured)[0];
+  getFeaturedPromotion(): Promise<Promotion> {
+    return Promise.resolve(PROMOTIONS.filter((promo) => promo.featured)[0]);
   }
 
 
