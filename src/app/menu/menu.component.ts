@@ -23,8 +23,8 @@ export class MenuComponent implements OnInit {
   constructor(private dishService: DishService) { }
 
   ngOnInit(): void { 
-    this.dishService.getDishes().
-      then((dish)=> this.dishes = dish);
+    this.dishService.getDishes()
+      .subscribe((dish)=> this.dishes = dish); // el metodo subscribe es practicamente igual que el then en promesas
   }
 
   /*
