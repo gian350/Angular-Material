@@ -39,6 +39,11 @@ export class DishService {
     return of(DISHES.filter((dish) => dish.featured)[0]).pipe(delay(2000));
   }
 
+  // esta función es para retornar todos los IDs de los platos
+  getDishIds(): Observable<string[] | any> {
+    return of(DISHES.map(dish => dish.id ));
+  }
+
 
   constructor( ) { }
 }

@@ -3,6 +3,7 @@ import { Dish } from '../shared/Dish';
 import { DishService } from '../services/dish.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { switchMap } from 'rxjs/operators';
 
 
 
@@ -25,15 +26,28 @@ export class DishdetailComponent implements OnInit {
   // El segundo metodo fue mandando información mediante la ruta
 
   dishesDetail: Dish;
+  dishIds: string[];
+  prev: string;
+  next: string;
 
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
     private location: Location) { }
 
   ngOnInit() {
-    let id = this.route.snapshot.params['id'];
-    this.dishservice.getDish(id)
-      .subscribe((dishdetail)=> this.dishesDetail = dishdetail);
+    
+    this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds); // obtengo los IDs y dentro de la suscripción puedo asignar directamente ahi el dishIDs
+    this.route.params
+      .pipe(switchMap((params:Params)=> this.dishservice.getDish(params['id'])))// mediante el switchMap obtiene el valor del dish escogido y coge el parametro id
+      .subscribe(dishesDetail => { this.dishesDetail = dishesDetail; this.setPrevNext(dishesDetail.id); }); // aqui le asigna al plato escogido
+    
+  }
+
+  // este metodo es para asignar el siguiente y anterior recibiendo al dish actual
+  setPrevNext(dishId: string) {
+    const index = this.dishIds.indexOf(dishId);
+    this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
+    this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
   }
 
   goBack(): void {
@@ -41,3 +55,22 @@ export class DishdetailComponent implements OnInit {
   }
 
 }
+
+/* Para obtener el parametro id de la ruta de los platos de Menu hay dos maneras
+    - Usando la instantánea de ruta,
+    - Uso de Router Observables
+    INFO
+    https://medium.com/@tiboprea/accessing-url-parameters-in-angular-snapshot-vs-subscription-efc4e70f9053
+
+    Si tiene la intención de no actualizar el parámetro URL dentro del mismo componente al que está accediendo a él, puede utilizar la instantánea(snapshot).
+
+    let id = this.route.snapshot.params['id'];
+    this.dishservice.getDish(id)
+      .subscribe((dishdetail)=> this.dishesDetail = dishdetail);
+
+    Si tiene la intención de actualizar el parámetro URL dentro del mismo componente, debe usar una suscripción(observables)
+
+    En conclusión para el primer caso no se podra modificar el contenido por que no cambia el valor del parametro, pero si se quiere actualizar en el mismo componente se nesesita usar programación reactiva
+    */
+
+// params es un parametro observable  
