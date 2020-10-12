@@ -32,19 +32,40 @@
     <h4>Loading . . . Please Wait</h4>
   </div>
 
-  <div fxFlex="40%" *ngIf="dishesDetail">
-    <mat-list fxFlex>
-      <h1>Comments</h1>
-      <mat-list-item *ngFor="let item of dishesDetail.comments">
-        <h3 matLine>{{item.comment}}</h3>
-        <p matLine>
-          <span>{{item.rating}}</span> Stars
-          <br>
-          -- {{item.author}}
-          <span>{{item.date | date}}</span>
+  <div fxFlex="50%" fxLayout="column" *ngIf="dishesDetail">
+    <div fxFlex >
+      <mat-list fxFlex>
+        <h1>Comments</h1>
+        <mat-list-item *ngFor="let item of dishesDetail.comments">
+          <h3 matLine>{{item.comment}}</h3>
+          <p matLine>
+            <span>{{item.rating}}</span> Stars
+            <br>
+            -- {{item.author}}
+            <span>{{item.date | date}}</span>
+          </p>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div fxFlex class="form-size">
+      <form novalidate [formGroup]="ComentForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+        <p>
+          <mat-form-field class="half-width">
+            <input matInput formControlName="author" placeholder="Name" type="text">
+          </mat-form-field>
         </p>
-      </mat-list-item>
-    </mat-list>
+        <p>
+          <mat-slider class="half-width" thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="5" value="5"></mat-slider>
+        </p>
+        <p>
+          <mat-form-field class="full-width">
+              <textarea matInput formControlName="comment" placeholder="Your comment" rows=12></textarea>
+          </mat-form-field>
+      </p>
+      </form>
+    </div>
+
   </div>
 </div>
 

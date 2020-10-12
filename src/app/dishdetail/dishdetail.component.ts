@@ -5,6 +5,9 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { comment } from '../shared/comment';
+
 
 
 @Component({
@@ -30,9 +33,13 @@ export class DishdetailComponent implements OnInit {
   prev: string;
   next: string;
 
+  modelComent: comment;
+  ComentForm: FormGroup;
+
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
     
@@ -40,6 +47,15 @@ export class DishdetailComponent implements OnInit {
     this.route.params
       .pipe(switchMap((params:Params)=> this.dishservice.getDish(params['id'])))// mediante el switchMap obtiene el valor del dish escogido y coge el parametro id
       .subscribe(dishesDetail => { this.dishesDetail = dishesDetail; this.setPrevNext(dishesDetail.id); }); // aqui le asigna al plato escogido
+
+    //--------------
+    this.ComentForm = this.fb.group({ 
+      author: ['',[Validators.required,Validators.minLength(2), Validators.maxLength(25)]],
+      rating: ['',[Validators.required]],
+      comment: ['',[Validators.required]]
+    });
+
+    
     
   }
 
@@ -54,7 +70,38 @@ export class DishdetailComponent implements OnInit {
     this.location.back(); // para volver a la pagina anterior 
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Para obtener el parametro id de la ruta de los platos de Menu hay dos maneras
     - Usando la instantánea de ruta,

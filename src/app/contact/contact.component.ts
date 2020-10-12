@@ -55,7 +55,7 @@ export class ContactComponent implements OnInit {
       message: '' // mediante la regla de negocio, podremos tambien no escribir  ningun comentario
     });
 
-    this.feedbackForm.valueChanges
+    this.feedbackForm.valueChanges // 
       .subscribe(data => this.onValueChanged(data));
 
     this.onValueChanged(); // reestablecer los mensajes de validación
@@ -179,6 +179,8 @@ export class ContactComponent implements OnInit {
       (this.feedbackForm.get(field).touched || this.feedbackForm.get(field).dirty) && !this.feedbackForm.get(field).valid
     );
   }
+
+  El ValueChanges es un evento generado por los formularios Angular cada vez que cambia el valor de FormControl, FormGroup o FormArray. Devuelve un observable para que pueda suscribirse a él. El observable obtiene el último valor del control. Nos permite realizar un seguimiento de los cambios realizados en el valor en tiempo real y responder a él. Por ejemplo, podemos usarlo para validar el valor, calcular los campos calculados, etc.
   
   */
 
