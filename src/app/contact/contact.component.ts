@@ -32,9 +32,9 @@ export class ContactComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective; // nos permite tener acceso al formulario de la plantilla y luego reestablecerlo completamente
 
   private emailPatron = /\S+@\S+\.\S+/;
-  private telefonoPatron = /[0-9]{3}-[0-9]{4}/;
+  private telefonoPatron = /^9[0-9]{8}$/;
 
-
+  // fijo -> /[0-9]{3}-[0-9]{4}/
   // inyectamos el servicio de "FormBuilder" para construir la forma reactiva     
   constructor(private fb: FormBuilder) {
       this.createForm();
@@ -46,14 +46,20 @@ export class ContactComponent implements OnInit {
   // aqui se creará el formulario reactivo 
   createForm() {
     this.feedbackForm = this.fb.group({ // creo un grupo (formgroup)
-      firstname: ['',Validators.required], // estos son los formControl que tiene el FormGroup
-      lastname: ['',Validators.required],
+      firstname: ['',[Validators.required,Validators.minLength(2), Validators.maxLength(25)]], // estos son los formControl que tiene el FormGroup
+      lastname: ['',[Validators.required,Validators.minLength(2), Validators.maxLength(25)]],
       telnum: ['',[Validators.required, Validators.pattern(this.telefonoPatron)]],
       email: ['',[Validators.required, Validators.pattern(this.emailPatron)]],
       agree: false,
       contacttype: 'None',// lo dejamos como valor predeterminado
       message: '' // mediante la regla de negocio, podremos tambien no escribir  ningun comentario
     });
+
+    this.feedbackForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+
+    this.onValueChanged(); // reestablecer los mensajes de validación
+
   }
 
   onSubmit() {
@@ -74,7 +80,73 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  // imaginos que el nombre gian ya existe y debe colocar otro
+
+  //------------------------------
+  // fields
+  formErrors = {
+    'firstname': '',
+    'lastname': '',
+    'telnum': '',
+    'email': ''
+  };
+
+  // mensajes de validación
+  validationMessages = {
+    'firstname': {
+      'required':      'First Name is required.',
+      'minlength':     'First Name must be at least 2 characters long.',
+      'maxlength':     'FirstName cannot be more than 25 characters long.'
+    },
+    'lastname': {
+      'required':      'Last Name is required.',
+      'minlength':     'Last Name must be at least 2 characters long.',
+      'maxlength':     'Last Name cannot be more than 25 characters long.'
+    },
+    'telnum': {
+      'required':      'Tel. number is required.',
+      'pattern':       'Tel. number must contain only nine numbers.'
+    },
+    'email': {
+      'required':      'Email is required.',
+      'pattern':       'Email not in valid format.'
+    },
+  };
+
+
+
+  onValueChanged(data?: any) { // recibe un dato o ninguno
+    if (!this.feedbackForm) {
+      return; // si el formulario no esta creado no retorna nada 
+    }
+    
+    const form = this.feedbackForm; // form equivale al formulario en si
+
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {// verifica si la propiedad "field" esta dentro de formErrors
+        
+        this.formErrors[field] = ''; // borrar el mensaje de error anterior (si corresponde) 
+        const control = form.get(field); // obtenemos el AbstractControl segun el field osea campo
+        if (control && control.dirty && !control.valid) {
+          const messages = this.validationMessages[field]; // obtiene los errores posibles y sus mensajes
+          for (const key in control.errors) { // recorrer el 
+            if (control.errors.hasOwnProperty(key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /*
+    hasOwnProperty -> Determina si un objeto tiene una propiedad con el nombre especificado
+
+    control.errors -> Un objeto que contiene cualquier error generado por una validación fallida, o nulo si no hay errores.
+
+    ValidationsError -> Define el mapa de errores devueltos por comprobaciones de validación fallidas osea devuelve los errores que se tiene en un imput
+
+    --- Forma anterior 
+    
 
   comprobarNombre(): boolean{
     if(this.feedbackForm.get('firstname').value === 'gian'){
@@ -101,36 +173,14 @@ export class ContactComponent implements OnInit {
     }
     return message;
   }
-/*
-  getErrorNum(): string{
-    let num_length = this.feedbackForm.get('telnum').value;
-    let message="";
-    let tipo = typeof num_length;
-
-    if(this.feedbackForm.get('telnum').errors.required){
-      message = 'You must enter a value';
-    }else{
-      if(tipo != 'number'){
-        message = "this field has to be numeric ";
-      }else{
-        if(num_length.length != 9){
-          message = "this field must have 9 numbers";
-        }
-      }
-      
-    }
-    
-    return num_length;
-  }
-*/
 
   isValidField(field: string): boolean{
     return (
       (this.feedbackForm.get(field).touched || this.feedbackForm.get(field).dirty) && !this.feedbackForm.get(field).valid
     );
   }
-
-
+  
+  */
 
 
 }

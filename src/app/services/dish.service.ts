@@ -31,7 +31,7 @@ export class DishService {
 
   // función para buscar un plato(dish)
   getDish(id: string): Observable<Dish> {
-    return of(DISHES.filter((dish) => (dish.id === id))[0]).pipe(delay(2000));
+    return of(DISHES.filter((dish) => (dish.id === id))[0]).pipe(delay(500));
   }
 
   // función para retornar plato destacado
