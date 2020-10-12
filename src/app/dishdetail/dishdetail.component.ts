@@ -7,6 +7,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { comment } from '../shared/comment';
+import { DISHES } from '../shared/Dishes'
 
 
 
@@ -32,6 +33,7 @@ export class DishdetailComponent implements OnInit {
   dishIds: string[];
   prev: string;
   next: string;
+  
 
   modelComent: comment;
   ComentForm: FormGroup;
@@ -48,6 +50,7 @@ export class DishdetailComponent implements OnInit {
     this.route.params
       .pipe(switchMap((params:Params)=> this.dishservice.getDish(params['id'])))// mediante el switchMap obtiene el valor del dish escogido y coge el parametro id
       .subscribe(dishesDetail => { this.dishesDetail = dishesDetail; this.setPrevNext(dishesDetail.id); }); // aqui le asigna al plato escogido
+    
 
     //--------------
     this.ComentForm = this.fb.group({ 
@@ -66,12 +69,17 @@ export class DishdetailComponent implements OnInit {
      console.log(this.feedback);
      this.feedbackForm.reset(); // vuelve a null todos los formControl*/
      this.modelComent = this.ComentForm.value;
+     var d = new Date();
+     var fecha = d.toISOString();
+     this.modelComent.date = fecha;
+     this.dishesDetail.comments.push(this.modelComent);
      console.log(this.modelComent);
      this.ComentFormDirective.resetForm(); // este resetea el formulario osea la plantilla
      this.ComentForm.reset({ // resetea el feedbackForm
        author: '',
        rating: 5,
-       comment: ''
+       comment: '',
+       date: ''
      });
    }
 
