@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { promise } from 'protractor';
 import { Dish } from '../shared/dish';
-import { DISHES } from '../shared/dishes';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { baseURL } from '../shared/baseurl';
 
 @Injectable({
   providedIn: 'root'
@@ -23,27 +26,28 @@ export class DishService {
       
       ------ Estructura de un observable que devuelve observables, para este caso
       se tiene que modificar el componente que recibe el observable
+      return of(DISHES).pipe(delay(2000));
 
     */
+    return this.http.get<Dish[]>(baseURL + 'dishes');
 
-    return of(DISHES).pipe(delay(2000));
   }
 
   // función para buscar un plato(dish)
   getDish(id: string): Observable<Dish> {
-    return of(DISHES.filter((dish) => (dish.id === id))[0]).pipe(delay(500));
+    return this.http.get<Dish>(baseURL + 'dishes/' + id);
   }
 
   // función para retornar plato destacado
   getFeaturedDish(): Observable<Dish> {
-    return of(DISHES.filter((dish) => dish.featured)[0]).pipe(delay(2000));
+    return this.http.get<Dish[]>(baseURL + 'dishes?featured=true').pipe(map(dishes => dishes[0]));
   }
 
   // esta función es para retornar todos los IDs de los platos
   getDishIds(): Observable<string[] | any> {
-    return of(DISHES.map(dish => dish.id ));
+    return this.getDishes().pipe(map(dishes => dishes.map(dish => dish.id)));
   }
 
 
-  constructor( ) { }
+  constructor(private http: HttpClient) { }
 }

@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { leader } from '../shared/Leader ';
-import { LEADERS } from '../shared/leaders';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { baseURL } from '../shared/baseurl';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +13,19 @@ import { delay } from 'rxjs/operators';
 export class LeaderService {
 
   getLeaderes(): Observable<leader[]> {
-    return of(LEADERS).pipe(delay(2000));
+    return this.http.get<leader[]>(baseURL + 'leadership');
   }
 
   // función para buscar un plato(dish)
   getLeader(id: string): Observable<leader> {
-    return of(LEADERS.filter((lead) => (lead.id === id))[0]).pipe(delay(2000));
+    return this.http.get<leader>(baseURL + 'leadership' + id);
   }
 
   // función para retornar plato destacado
   getFeaturedLeader(): Observable<leader> {
-    return of(LEADERS.filter((lead) => lead.featured)[0]).pipe(delay(2000));
+    return this.http.get<leader>(baseURL + 'leadership?featured=true').pipe(map(lead => lead[0]));
   }
 
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 }
