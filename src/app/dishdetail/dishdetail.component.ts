@@ -8,11 +8,26 @@ import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { comment } from '../shared/comment';
 
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.scss']
+  styleUrls: ['./dishdetail.component.scss'],
+  animations: [
+    trigger('visibility', [
+        state('shown', style({ // estado visible
+            transform: 'scale(1.0)',
+            opacity: 1
+        })),
+        state('hidden', style({ // estado oculto
+            transform: 'scale(0.5)',
+            opacity: 0
+        })),
+        transition('* => *', animate('0.5s ease-in-out')) // transición de cualquier estado a otro estado
+    ])
+  ]
 })
 
 export class DishdetailComponent implements OnInit {
@@ -35,6 +50,8 @@ export class DishdetailComponent implements OnInit {
   errMess: string;
   dishcopy: Dish;
 
+  visibility = 'shown';
+
   modelComent: comment;
   ComentForm: FormGroup;
   @ViewChild('fform') ComentFormDirective;
@@ -49,8 +66,14 @@ export class DishdetailComponent implements OnInit {
     
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds); // obtengo los IDs y dentro de la suscripción puedo asignar directamente ahi el dishIDs
     this.route.params
-      .pipe(switchMap((params:Params)=> this.dishservice.getDish(params['id'])))// mediante el switchMap obtiene el valor del dish escogido y coge el parametro id
-      .subscribe(dishesDetail => { this.dishesDetail = dishesDetail; this.dishcopy = dishesDetail ; this.setPrevNext(dishesDetail.id); errmess => this.errMess = <any>errmess }); // aqui le asigna al plato escogido
+      .pipe(switchMap((params: Params) => {
+       this.visibility = 'hidden';  // se oculta cuando cambia de url osea de parametro de dish
+       return this.dishservice.getDish(params['id']); 
+      }))
+      .subscribe(dishesDetail => { this.dishesDetail = dishesDetail; this.dishcopy = dishesDetail ; 
+        this.setPrevNext(dishesDetail.id); this.visibility = 'shown';}, errmess => this.errMess = <any>errmess ); // aqui le asigna al plato escogido y tambien se hace visible el plato
+
+      // mediante el switchMap obtiene el valor del dish escogido y coge el parametro id
     
 
     //--------------

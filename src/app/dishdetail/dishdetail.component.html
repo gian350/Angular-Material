@@ -1,7 +1,7 @@
 <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
   fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
 
-  <div fxFlex="40%" *ngIf="dishesDetail">
+  <div fxFlex="40%" *ngIf="dishesDetail" [@visibility]="visibility">
     <mat-card class="example-card">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
@@ -37,7 +37,7 @@
     <h4>{{errMess}}</h4>
   </div>
 
-  <div fxFlex="50%" fxLayout="column" *ngIf="dishesDetail">
+  <div fxFlex="50%" fxLayout="column" *ngIf="dishesDetail" [@visibility]="visibility">
     <div fxFlex>
       <mat-list fxFlex>
         <h1>Comments</h1>
