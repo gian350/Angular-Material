@@ -45,6 +45,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component';
 
 import { baseURL } from './shared/baseurl';
+import { HighlightDirective } from './directives/highlight.directive';
 
 // aqui se puede notar que el moduleApp esta conteniendo estos otros modulos y componentes, el modulo raiz es
 //  el modulo primario que le ayuda a arrancar a Angular
@@ -61,7 +62,8 @@ import { baseURL } from './shared/baseurl';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    LoginComponent   
+    LoginComponent,
+    HighlightDirective   
   ],
   imports: [// estos son los modulos que se van a importar en el modulo de la aplicación.
     BrowserModule,

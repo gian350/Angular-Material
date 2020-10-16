@@ -24,7 +24,7 @@
   <!-- mientras los platos no sean nulos deben mostrarse, osea esperará a que la promesa se realice para mostrar -->
   <div fxFlex *ngIf="dishes">
     <mat-grid-list cols="2" rowHeight="200px">
-      <mat-grid-tile *ngFor="let item of dishes" [routerLink]="['/dishdetail', item.id]">
+      <mat-grid-tile *ngFor="let item of dishes" [routerLink]="['/dishdetail', item.id]" appHighlight>
         <img height="200px" src="{{BaseURL + item.image}}" alt={{item.name}}>
         <mat-grid-tile-footer>
           <h1>{{item.name | uppercase}}</h1>

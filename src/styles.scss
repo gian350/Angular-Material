@@ -47,6 +47,13 @@ body {
   flex: 1 1 auto;
 }
 
+.highlight { // clase para el uso de la directiva
+  background-color: $background-pale;
+  border: 1px solid $primary-color-dark;
+  z-index: 1;
+  transform: scale(1.01);
+}
+
 // valor por defecto del flex es 0 1 auto, 
 // 1- 1 = grow que significa que tomara todo el espacio entre dos box factor(crecimiento)
 // 2- 1 = shrink que significa que se reducira en proporción de 1
