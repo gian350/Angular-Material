@@ -15,6 +15,7 @@ import { DishService } from '../services/dish.service';
 export class MenuComponent implements OnInit {
   // creamos un arreglo de Dish para mostrarlos luego
   dishes: Dish[];
+  errMess: string;
   
   //se declara la clase servicio en el constructor, de esta manera ya lo estamos inyectando a este componente
   constructor(private dishService: DishService,
@@ -22,7 +23,9 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void { 
     this.dishService.getDishes()
-      .subscribe((dish)=> this.dishes = dish); // el metodo subscribe es practicamente igual que el then en promesas
+      .subscribe((dish)=> this.dishes = dish, errmess => this.errMess = <any>errmess);
+      
+      // el metodo subscribe es practicamente igual que el then en promesas
   }
 
   /*

@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
   promo:Promotion;
   lead:leader;
 
+  errMess: string;
+
   // se inyecta el serivicio a la clase mediante el constructor
   constructor( private dishService: DishService,
     private promotionService: PromotionService,
@@ -27,7 +29,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.dishService.getFeaturedDish()
-      .subscribe((dish)=> this.dish = dish);
+      .subscribe((dish)=> this.dish = dish, errmess => this.errMess = <any>errmess);
     this.promotionService.getFeaturedPromotion()
       .subscribe((pro)=> this.promo = pro);
     this.leaderService.getFeaturedLeader()

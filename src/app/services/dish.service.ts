@@ -4,9 +4,11 @@ import { Dish } from '../shared/dish';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { baseURL } from '../shared/baseurl';
+
+import { ProcessHTTPMsgService } from './process-httpmsg.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,25 +31,30 @@ export class DishService {
       return of(DISHES).pipe(delay(2000));
 
     */
-    return this.http.get<Dish[]>(baseURL + 'dishes');
+    return this.http.get<Dish[]>(baseURL + 'dishes')
+      .pipe(catchError(this.processHTTPMsgService.handleError));
 
   }
 
   // función para buscar un plato(dish)
   getDish(id: string): Observable<Dish> {
-    return this.http.get<Dish>(baseURL + 'dishes/' + id);
+    return this.http.get<Dish>(baseURL + 'dishes/' + id)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   // función para retornar plato destacado
   getFeaturedDish(): Observable<Dish> {
-    return this.http.get<Dish[]>(baseURL + 'dishes?featured=true').pipe(map(dishes => dishes[0]));
+    return this.http.get<Dish[]>(baseURL + 'dishees?featured=true').pipe(map(dishes => dishes[0]))
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   // esta función es para retornar todos los IDs de los platos
   getDishIds(): Observable<string[] | any> {
-    return this.getDishes().pipe(map(dishes => dishes.map(dish => dish.id)));
+    return this.getDishes().pipe(map(dishes => dishes.map(dish => dish.id)))
+      .pipe(catchError(error => error)); // getDishes puede obtener error, solo basta enviar ese valor
   }
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private processHTTPMsgService: ProcessHTTPMsgService) { }
 }

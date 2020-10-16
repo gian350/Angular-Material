@@ -35,11 +35,15 @@
 
   <!-- si los platos no son nulos este div estará oculto, si todavia no se cumple la promesa, esto se mostrará -->
   
-  <div [hidden]="dishes" >
+  <div [hidden]="dishes || errMess" >
       <mat-spinner></mat-spinner>
       <h4>Loading . . . Please Wait</h4>
   </div>
 
+  <div fxFlex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+  </div>
 
   <!-- 
     <app-dishdetail [dishesDetail]="selectedDishdetail"></app-dishdetail> 
