@@ -33,6 +33,7 @@ export class DishdetailComponent implements OnInit {
   next: string;
   
   errMess: string;
+  dishcopy: Dish;
 
   modelComent: comment;
   ComentForm: FormGroup;
@@ -49,7 +50,7 @@ export class DishdetailComponent implements OnInit {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds); // obtengo los IDs y dentro de la suscripción puedo asignar directamente ahi el dishIDs
     this.route.params
       .pipe(switchMap((params:Params)=> this.dishservice.getDish(params['id'])))// mediante el switchMap obtiene el valor del dish escogido y coge el parametro id
-      .subscribe(dishesDetail => { this.dishesDetail = dishesDetail; this.setPrevNext(dishesDetail.id), errmess => this.errMess = <any>errmess }); // aqui le asigna al plato escogido
+      .subscribe(dishesDetail => { this.dishesDetail = dishesDetail; this.dishcopy = dishesDetail ; this.setPrevNext(dishesDetail.id); errmess => this.errMess = <any>errmess }); // aqui le asigna al plato escogido
     
 
     //--------------
@@ -72,7 +73,14 @@ export class DishdetailComponent implements OnInit {
      var d = new Date();
      var fecha = d.toISOString();
      this.modelComent.date = fecha;
-     this.dishesDetail.comments.push(this.modelComent);
+     this.dishcopy.comments.push(this.modelComent);
+
+     this.dishservice.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dishesDetail = dish; this.dishcopy = dish;
+      }, errmess => { this.dishesDetail = null; this.dishcopy = null; this.errMess = <any>errmess; });
+
+
      console.log(this.modelComent);
      this.ComentFormDirective.resetForm(); // este resetea el formulario osea la plantilla
      this.ComentForm.reset({ // resetea el feedbackForm
