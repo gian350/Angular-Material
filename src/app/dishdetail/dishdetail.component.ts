@@ -8,7 +8,7 @@ import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { comment } from '../shared/comment';
 
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { visibility, expand } from '../animations/app.animation';
 
 
 @Component({
@@ -16,17 +16,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   templateUrl: './dishdetail.component.html',
   styleUrls: ['./dishdetail.component.scss'],
   animations: [
-    trigger('visibility', [
-        state('shown', style({ // estado visible
-            transform: 'scale(1.0)',
-            opacity: 1
-        })),
-        state('hidden', style({ // estado oculto
-            transform: 'scale(0.5)',
-            opacity: 0
-        })),
-        transition('* => *', animate('0.5s ease-in-out')) // transición de cualquier estado a otro estado
-    ])
+    visibility(),
+    expand()
   ]
 })
 
@@ -50,7 +41,7 @@ export class DishdetailComponent implements OnInit {
   errMess: string;
   dishcopy: Dish;
 
-  visibility = 'shown';
+  visibility = 'shown'; // esta variable será para indicar el estado definido en el decorador 
 
   modelComent: comment;
   ComentForm: FormGroup;

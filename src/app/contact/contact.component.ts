@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback'; 
 
+import { flyInOut } from '../animations/app.animation';
+
 /* ViewChild - esto permite tener acceso a cualquier de los elementos DOM hijos o secundarios dentro de la vista
 
 https://medium.com/technofunnel/angular-viewchild-and-viewchildren-fde2d252b9ab
@@ -21,7 +23,14 @@ https://medium.com/technofunnel/angular-viewchild-and-viewchildren-fde2d252b9ab
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+  },
+  animations: [
+    flyInOut()
+  ]
 })
 export class ContactComponent implements OnInit {
 
