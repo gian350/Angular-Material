@@ -15,15 +15,15 @@
         </mat-card-content>
     </mat-card>
 
-    <div [hidden]="dish || errMess" >
+    <div [hidden]="dish || errMessDish">
         <mat-spinner></mat-spinner>
         <h4>Loading . . . Please Wait</h4>
     </div>
 
-    <div fxFlex *ngIf="errMess">
+    <div fxFlex *ngIf="errMessDish">
         <h2>Error</h2>
-        <h4>{{errMess}}</h4>
-      </div>
+        <h4>{{errMessDish}}</h4>
+    </div>
 
     <mat-card *ngIf="promo" fxFlex [@expand]>
         <mat-card-header>
@@ -38,9 +38,15 @@
             </p>
         </mat-card-content>
     </mat-card>
-    <div [hidden]="promo" >
+
+    <div [hidden]="promo || errMessPromotion">
         <mat-spinner></mat-spinner>
         <h4>Loading . . . Please Wait</h4>
+    </div>
+
+    <div fxFlex *ngIf="errMessPromotion">
+        <h2>Error</h2>
+        <h4>{{errMessPromotion}}</h4>
     </div>
 
     <mat-card *ngIf="lead" fxFlex [@expand]>
@@ -56,9 +62,15 @@
             </p>
         </mat-card-content>
     </mat-card>
-    <div [hidden]="lead" >
+
+    <div [hidden]="lead || errMessLeader">
         <mat-spinner></mat-spinner>
         <h4>Loading . . . Please Wait</h4>
+    </div>
+
+    <div fxFlex *ngIf="errMessLeader">
+        <h2>Error</h2>
+        <h4>{{errMessLeader}}</h4>
     </div>
 
 </div>

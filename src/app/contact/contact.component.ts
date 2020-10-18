@@ -24,8 +24,8 @@ https://medium.com/technofunnel/angular-viewchild-and-viewchildren-fde2d252b9ab
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  host: {
-    '[@flyInOut]': 'true',
+  host: { // es el anfitrion
+    '[@flyInOut]': 'true', // una animation para el anfitrion osea esta plantilla
     'style': 'display: block;'
   },
   animations: [
